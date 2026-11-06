@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="descrip tion"
+      content="MotoCare: organiza tu moto y lleva el control de sus mantenimientos."
+    />
+
+    <title>MotoCare | Cuidado de tu moto</title>
+
+    <!-- Conexión con la hoja de estilos CSS -->
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <!-- ========== INICIO DE SESIÓN ========== -->
+
+    <section id="login-screen" class="login-screen">
+      <div class="login-card">
+        <div class="brand brand-login">
+          <div class="brand-logo">M</div>
+
+          <div>
+            <h1>MotoCare</h1>
+
+            <p>Tu moto, siempre en buenas manos</p>
+          </div>
+        </div>
+
+        <h2>¡Bienvenido!</h2>
+
+        <p class="muted">Ingresa para administrar el cuidado de tu moto.</p>
+
+        <form id="login-form">
+          <label for="login-email">Correo electrónico</label>
+
+          <input
+            type="email"
+            id="login-email"
+            placeholder="tucorreo@ejemplo.com"
+            required
+          />
+
+          <label for="login-password">Contraseña</label>
+
+          <input
+            type="password"
+            id="login-password"
+            placeholder="Ingresa tu contraseña"
+            required
+          />
+
+          <button class="btn btn-primary btn-full" type="submit">
+            Iniciar sesión
+          </button>
+        </form>
+
+        <p class="login-note">
+          Modo demostración: puedes ingresar con cualquier correo y contraseña.
+        </p>
+      </div>
+    </section>
+
+    <!-- ========== APLICACIÓN PRINCIPAL ========== -->
+
+    <div id="app" class="app hidden">
+      <!-- Cabecera y logotipo -->
+
+      <header class="top-header">
+        <a href="#inicio" class="brand brand-header" data-page-link="inicio">
+          <div class="brand-logo">M</div>
+          <div>
+            <span class="brand-name">MotoCare</span>
+            <span class="brand-subtitle">Cuidado inteligente</span>
+          </div>
+        </a>
+
+        <!-- BOTÓN HAMBURGUESA -->
+        <button
+          id="hamburger-button"
+          class="hamburger-button"
+          type="button"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+          aria-controls="main-navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="header-user">
+          <span class="user-avatar">U</span>
+          <div>
+            <strong>Mi cuenta</strong>
+            <small>Usuario MotoCare</small>
+          </div>
+          <button
+            id="logout-button"
+            class="btn btn-outline btn-small"
+            type="button"
+          >
+            Salir
+          </button>
+        </div>
+      </header>
+
+      <!-- Menú horizontal principal -->
+
+      <nav
+        id="main-navigation"
+        class="main-nav"
+        aria-label="Navegación principal"
+      
+
+        <a href="#inicio" class="nav-link active" data-page-link="inicio">
+          <span>⌂</span> Inicio
+        </a>
+
+        <a href="#mi-moto" class="nav-link" data-page-link="mi-moto">
+          <span>🏍</span> Mi moto
+        </a>
+
+        <!-- Opción con submenú vertical -->
+
+        <div class="nav-dropdown">
+          <button
+            id="maintenance-menu-button"
+            class="nav-link dropdown-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="maintenance-submenu"
+          >
+            <span>🔧</span> Mantenimientos <span class="chevron">⌄</span>
+          </button>
+
+          <div id="maintenance-submenu" class="dropdown-menu hidden">
+            <a href="#mantenimientos" data-page-link="mantenimientos">
+              Historial de mantenimientos
+            </a>
+
+            <a href="#registrar" data-page-link="registrar">
+              Registrar mantenimiento
+            </a>
+          </div>
+        </div>
+
+        <a href="#galeria" class="nav-link" data-page-link="galeria">
+          <span>▦</span> Galería
+        </a>
+
+        <a href="#consejos" class="nav-link" data-page-link="consejos">
+          <span>✦</span> Consejos
+        </a>
+      </nav>
+
+      <!-- Contenido de las páginas -->
+
+      <main class="main-content">
+        <!-- ========== SECCIÓN INICIO ========== -->
+
+        <section id="page-inicio" class="page-section">
+          <div class="welcome-banner">
+            <div>
+              <p class="eyebrow">BIENVENIDO A MOT OCARE</p>
+
+              <h1>Cuida tu moto, disfruta cada camino.</h1>
+
+              <p>
+                Organiza tus mantenimientos y ten a la mano la información
+                importante de tu vehículo.
+              </p>
+
+              <button
+                class="btn btn-light"
+                type="button"
+                data-go-page="registrar"
+              >
+                + Registrar mantenimiento
+              </button>
+            </div>
+
+            <div class="banner-motorcycle" aria-hidden="true">🏍️</div>
+          </div>
+
+          <div class="section-heading">
+            <div>
+              <h2>Resumen general</h2>
+
+              <p class="muted">Un vistazo al estado de tu moto.</p>
+            </div>
+
+            <span class="status-pill"
+              ><span class="status-dot"></span> Panel activo</span
+            >
+          </div>
+
+          <!-- Tarjetas de resumen -->
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon blue">🏍️</div>
+
+              <p>Mi motocicleta</p>
+
+              <h3 id="dashboard-bike">TVS Raider 125</h3>
+
+              <small>Vehículo registrado</small>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon green">🔧</div>
+
+              <p>Mantenimientos registrados</p>
+
+              <h3 id="maintenance-count">0</h3>
+
+              <small>Registros en tu historial</small>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon orange">📅</div>
+
+              <p>Próximo mantenimiento</p>
+
+              <h3 id="next-maintenance">Por programar</h3>
+
+              <small>Consulta tu kilometraje</small>
+            </div>
+          </div>
+
+          <div class="content-grid">
+            <div class="panel">
+              <div class="panel-heading">
+                <div>
+                  <h2>Últimos mantenimientos</h2>
+
+                  <p class="muted">Tus registros más recientes.</p>
+                </div>
+
+                <button
+                  class="text-button"
+                  type="button"
+                  data-go-page="mantenimientos"
+                >
+                  Ver historial →
+                </button>
+              </div>
+
+              <div id="recent-maintenance-list" class="recent-list">
+                <p class="empty-state">
+                  Todavía no tienes mantenimientos registrados.
+                </p>
+              </div>
+            </div>
+
+            <div class="panel tip-panel">
+              <div class="tip-icon">💡</div>
+
+              <h2>Consejo del día</h2>
+
+              <p>
+                Revisa periódicamente la presión de los neumáticos, el estado de
+                la cadena, las luces y los frenos.
+              </p>
+
+              <button
+                class="btn btn-outline"
+                type="button"
+                data-go-page="consejos"
+              >
+                Ver más consejos
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== SECCIÓN MI MOTO ========== -->
+
+        <section id="page-mi-moto" class="page-section hidden">
+          <div class="page-title">
+            <p class="eyebrow">MI VEHÍCULO</p>
+
+            <h1>Mi motocicleta</h1>
+
+            <p class="muted">Consulta y actualiza los datos de tu moto.</p>
+          </div>
+
+          <div class="panel bike-profile">
+            <div class="bike-illustration">🏍️</div>
+
+            <div class="bike-details">
+              <span class="status-pill"
+                ><span class="status-dot"></span> Vehículo registrado</span
+              >
+
+              <h2 id="bike-title">TVS Raider 125</h2>
+
+              <p class="muted">Información básica de tu motocicleta.</p>
+
+              <form id="bike-form" class="form-grid">
+                <div>
+                  <label for="bike-brand">Marca</label>
+
+                  <input id="bike-brand" value="TVS" required />
+                </div>
+
+                <div>
+                  <label for="bike-model">Modelo</label>
+
+                  <input id="bike-model" value="Raider 125" required />
+                </div>
+
+                <div>
+                  <label for="bike-year">Año</label>
+
+                  <input
+                    id="bike-year"
+                    type="number"
+                    min="1900"
+                    max="2100"
+                    value="2025"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label for="bike-km">Kilometraje actual (km)</label>
+
+                  <input
+                    id="bike-km"
+                    type="number"
+                    min="0"
+                    value="14000"
+                    required
+                  />
+                </div>
+
+                <div class="form-actions">
+                  <button class="btn btn-primary" type="submit">
+                    Guardar datos
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== SECCIÓN MANTENIMIENTOS ========== -->
+
+        <section id="page-mantenimientos" class="page-section hidden">
+          <div class="page-title page-title-row">
+            <div>
+              <p class="eyebrow">CONTROL DE SERVICIOS</p>
+
+              <h1>Historial de mantenimientos</h1>
+
+              <p class="muted">
+                Consulta los servicios realizados a tu motocicleta.
+              </p>
+            </div>
+
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-go-page="registrar"
+            >
+              + Nuevo registro
+            </button>
+          </div>
+
+          <div class="panel">
+            <div class="filter-row">
+              <div class="search-box">
+                <label for="maintenance-search">Buscar mantenimiento</label>
+
+                <input
+                  id="maintenance-search"
+                  type="search"
+                  placeholder="Ej. cambio de aceite"
+                />
+              </div>
+
+              <div>
+                <label for="maintenance-filter">Filtrar por tipo</label>
+
+                <select id="maintenance-filter">
+                  <option value="todos">Todos los tipos</option>
+
+                  <option value="Aceite">Cambio de aceite</option>
+
+                  <option value="Cadena">Cadena</option>
+
+                  <option value="Frenos">Frenos</option>
+
+                  <option value="Neumáticos">Neumáticos</option>
+
+                  <option value="General">Mantenimiento general</option>
+
+                  <option value="Otro">Otro</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+
+                    <th>Servicio</th>
+
+                    <th>Kilometraje</th>
+
+                    <th>Costo</th>
+
+                    <th>Descripción</th>
+
+                    <th>Acción</th>
+                  </tr>
+                </thead>
+
+                <tbody id="maintenance-table-body">
+                  <tr>
+                    <td colspan="6" class="empty-state">
+                      No hay registros. Agrega tu primer mantenimiento.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== SECCIÓN REGISTRAR MANTENIMIENTO ========== -->
+
+        <section id="page-registrar" class="page-section hidden">
+          <div class="page-title">
+            <p class="eyebrow">NUEVO REGISTRO</p>
+
+            <h1>Registrar mantenimiento</h1>
+
+            <p class="muted">Completa los datos del servicio realizado.</p>
+          </div>
+
+          <div class="panel form-panel">
+            <form id="maintenance-form" class="form-grid">
+              <div>
+                <label for="service-type">Tipo de mantenimiento</label>
+
+                <select id="service-type" required>
+                  <option value="">Selecciona un tipo</option>
+
+                  <option value="Aceite">Cambio de aceite</option>
+
+                  <option value="Cadena">Limpieza o ajuste de cadena</option>
+
+                  <option value="Frenos">Revisión de frenos</option>
+
+                  <option value="Neumáticos">Revisión de neumáticos</option>
+
+                  <option value="General">Mantenimiento general</option>
+
+                  <option value="Otro">Otro</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="service-date">Fecha del servicio</label>
+
+                <input id="service-date" type="date" required />
+              </div>
+
+              <div>
+                <label for="service-km">Kilometraje (km)</label>
+
+                <input
+                  id="service-km"
+                  type="number"
+                  min="0"
+                  placeholder="Ej. 15000"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="service-cost">Costo (S/)</label>
+
+                <input
+                  id="service-cost"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  placeholder="Ej. 80.00"
+                  required
+                />
+              </div>
+
+              <div class="full-width">
+                <label for="service-description"
+                  >Descripción del servicio</label
+                >
+
+                <textarea
+                  id="service-description"
+                  rows="4"
+                  placeholder="Describe el trabajo realizado, repuestos utilizados u observaciones..."
+                  required
+                ></textarea>
+              </div>
+
+              <div class="form-actions full-width">
+                <button class="btn btn-primary" type="submit">
+                  Guardar mantenimiento
+                </button>
+
+                <button class="btn btn-outline" type="reset">
+                  Limpiar formulario
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- ========== SECCIÓN GALERÍA ========== -->
+
+        <section id="page-galeria" class="page-section hidden">
+          <div class="page-title">
+            <p class="eyebrow">GALERÍA VISUAL</p>
+
+            <h1>Galería de cuidado y mantenimiento</h1>
+
+            <p class="muted">
+              Imágenes de referencia para conocer mejor las piezas y los
+              cuidados básicos de una motocicleta.
+            </p>
+          </div>
+
+          <!-- Galería de 16 elementos: cuatro columnas en escritorio -->
+
+          <div class="gallery-grid">
+            <article class="gallery-card">
+              <img
+                src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=700&q=80"
+                alt="Motocicleta estacionada en un entorno exterior"
+                loading="lazy"
+              />
+
+              <div class="gallery-caption">
+                <h3>Cuidado general</h3>
+                <p>Mantén tu moto limpia y revisa su estado con frecuencia.</p>
+              </div>
+            </article>
+
+            <article class="gallery-card">
+              <img
+                src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=700&q=80"
+                alt="Detalle de una motocicleta y sus componentes"
+                loading="lazy"
+              />
+
+              <div class="gallery-caption">
+                <h3>Revisión visual</h3>
+                <p>Observa si hay piezas sueltas, fugas o daños visibles.</p>
+              </div>
+            </article>
+
+            <article class="gallery-card">
+              <img
+                src="https://images.unsplash.com/photo-1558981852-426c6c22a060?auto=format&fit=crop&w=700&q=80"
+                alt="Motocicleta vista de cerca"
+                loading="lazy"
+              />
+
+              <div class="gallery-caption">
+                <h3>Antes de salir</h3>
+                <p>Comprueba luces, espejos, frenos y neumáticos.</p>
+              </div>
+            </article>
+
+            <article class="gallery-card">
+              <img
+                src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=700&q=80"
+                alt="Motocicleta para ilustrar el cuidado del vehículo"
+                loading="lazy"
+              />
+
+              <div class="gallery-caption">
+                <h3>Uso responsable</h3>
+                <p>Usa siempre casco y el equipo de protección adecuado.</p>
+              </div>
+            </article>
+
+            <article class="gallery-card">
+              <img
+                src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=700&q=80"
+                alt="Motocicleta en exterior como referencia de mantenimiento"
+                loading="lazy"
+              />
+
+              <div class="gallery-caption">
+                <h3>Control de aceite</h3>
+                <p>Verifica el nivel y sigue el intervalo recomendado.</p>
+              </div>
+            </article>
+
+            <article class="gallery-card">
+              <img
+                src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=700&q=80"
+                alt="Motocicleta como referencia para una inspección periódica"
+                loading="lazy"
+              />
+
+              <div class="gallery-caption">
+                <h3>Inspección periódica</h3>
+                <p>Respeta el programa de mantenimiento del fabricante.</p>
+              </div>
+            </article>
+
+            <article class="gallery-card">
+              <img
+                src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=700&q=80"
+                alt="Motocicleta estacionada para una revisión general"
+                loading="lazy"
+              />
+
+              <div class="gallery-caption">
+                <h3>Neumáticos</h3>
+                <p>Revisa la presión y el desgaste de las llantas.</p>
+              </div>
+            </article>
+
+            <article class="gallery-card">
+              <img
+                src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=700&q=80"
+                alt="Motocicleta usada como ejemplo de cuidado preventivo"
+                loading="lazy"
+              />
+
+              <div class="gallery-caption">
+                <h3>Frenos seguros</h3>
+                <p>Presta atención a ruidos y cambios en la frenada.</p>
+              </div>
+            </article>
+
+            <article class="gallery-card">
+              <img
+                src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=700&q=80"
+                alt="Motocicleta en una zona exterior"
+                loading="lazy"
+              />
+
+              <div class="gallery-caption">
+                <h3>Cadena limpia</h3>
+                <p>Limpia y lubrica la cadena según las indicaciones.</p>
+              </div>
+            </article>
+
+            <article class="gallery-card">
+              <img
+                src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=700&q=80"
+                alt="Motocicleta para ilustrar el registro de servicios"
+                loading="lazy"
+              />
+
+              <div class="gallery-caption">
+                <h3>Registro de servicios</h3>
+                <p>Anota fechas, kilometraje, tareas y gastos.</p>
+              </div>
+            </article>
+
+            <article class="gallery-card">
+              <img
+                src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=700&q=80"
+                alt="Motocicleta en un ambiente al aire libre"
+                loading="lazy"
+              />
+
+              <div class="gallery-caption">
+                <h3>Conducción segura</h3>
+                <p>Adapta la velocidad a las condiciones del camino.</p>
+              </div>
+            </article>
+
+            <article class="gallery-card">
+              <img
+                src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=700&q=80"
+                alt="Motocicleta como referencia para planificar revisiones"
+                loading="lazy"
+              />
+
+              <div class="gallery-caption">
+                <h3>Planificación</h3>
+                <p>Programa las revisiones para evitar olvidos.</p>
+              </div>
+            </article>
+
+            <article class="gallery-card">
+              <img
+                src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=700&q=80"
+                alt="Motocicleta que representa el cuidado preventivo"
+                loading="lazy"
+              />
+
+              <div class="gallery-caption">
+                <h3>Cuidado preventivo</h3>
+                <p>Atiende las señales de desgaste a tiempo.</p>
+              </div>
+            </article>
+
+            <article class="gallery-card">
+              <img
+                src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=700&q=80"
+                alt="Motocicleta preparada para circular"
+                loading="lazy"
+              />
+
+              <div class="gallery-caption">
+                <h3>Preparación del viaje</h3>
+                <p>Comprueba el estado de tu moto antes de viajar.</p>
+              </div>
+            </article>
+
+            <article class="gallery-card">
+              <img
+                src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=700&q=80"
+                alt="Motocicleta para ilustrar la limpieza del vehículo"
+                loading="lazy"
+              />
+
+              <div class="gallery-caption">
+                <h3>Limpieza adecuada</h3>
+                <p>Usa productos apropiados para cada componente.</p>
+              </div>
+            </article>
+
+            <article class="gallery-card">
+              <img
+                src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=700&q=80"
+                alt="Motocicleta que representa el mantenimiento responsable"
+                loading="lazy"
+              />
+
+              <div class="gallery-caption">
+                <h3>Historial completo</h3>
+                <p>Conserva los comprobantes y detalles de cada servicio.</p>
+              </div>
+            </article>
+          </div>
+
+          <p class="gallery-note">
+            Nota: las imágenes son referencias visuales externas; necesitas
+            conexión a internet para que carguen.
+          </p>
+        </section>
+
+        <!-- ========== SECCIÓN CONSEJOS ========== -->
+
+        <section id="page-consejos" class="page-section hidden">
+          <div class="page-title">
+            <p class="eyebrow">CUIDADO PREVENTIVO</p>
+
+            <h1>Consejos para tu motocicleta</h1>
+
+            <p class="muted">
+              Pequeñas revisiones que ayudan a mantener tu moto en buen estado.
+            </p>
+          </div>
+
+          <div class="tips-grid">
+            <article class="panel tip-card">
+              <div class="tip-icon">🛢️</div>
+
+              <h2>Revisa el aceite</h2>
+
+              <p>
+                Comprueba el nivel y reemplázalo según el manual de tu
+                motocicleta.
+              </p>
+            </article>
+
+            <article class="panel tip-card">
+              <div class="tip-icon">⛓️</div>
+
+              <h2>Cuida la cadena</h2>
+
+              <p>
+                Mantén la cadena limpia, lubricada y con la tensión indicada.
+              </p>
+            </article>
+
+            <article class="panel tip-card">
+              <div class="tip-icon">🛞</div>
+
+              <h2>Comprueba las llantas</h2>
+
+              <p>
+                Verifica la presión recomendada y busca señales de desgaste.
+              </p>
+            </article>
+
+            <article class="panel tip-card">
+              <div class="tip-icon">🛑</div>
+
+              <h2>Verifica los frenos</h2>
+
+              <p>
+                Si notas ruidos o una respuesta diferente, solicita una
+                revisión.
+              </p>
+            </article>
+
+            <article class="panel tip-card">
+              <div class="tip-icon">💡</div>
+
+              <h2>Prueba las luces</h2>
+
+              <p>
+                Comprueba los faros, direccionales, luz posterior y luz de
+                freno.
+              </p>
+            </article>
+
+            <article class="panel tip-card">
+              <div class="tip-icon">📘</div>
+
+              <h2>Sigue el manual</h2>
+
+              <p>
+                Los intervalos y especificaciones dependen del modelo de tu
+                moto.
+              </p>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <!-- ========== PIE DE PÁGINA ========== -->
+
+      <footer class="site-footer">
+        <div class="footer-main">
+          <div class="footer-brand">
+            <div class="brand brand-footer">
+              <div class="brand-logo">M</div>
+
+              <span class="brand-name">MotoCare</span>
+            </div>
+
+            <p>
+              Una manera práctica de organizar el cuidado de tu motocicleta.
+            </p>
+          </div>
+
+          <div class="footer-column">
+            <h3>Contacto</h3>
+
+            <a href="mailto:contacto@motocare.example"
+              >contacto@motocare.example</a
+            >
+
+            <p>Proyecto académico</p>
+          </div>
+
+          <div class="footer-column">
+            <h3>Explora</h3>
+
+            <a href="#inicio" data-page-link="inicio">Inicio</a>
+
+            <a href="#mantenimientos" data-page-link="mantenimientos"
+              >Mantenimientos</a
+            >
+
+            <a href="#galeria" data-page-link="galeria">Galería</a>
+          </div>
+
+          <div class="footer-column">
+            <h3>Redes sociales</h3>
+
+            <a
+              href="https://www.instagram.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Instagram ↗</a
+            >
+
+            <a
+              href="https://www.facebook.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Facebook ↗</a
+            >
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© <span id="current-year"></span> MotoCare. Proyecto académico.</p>
+
+          <p>Cuida tu moto en cada kilómetro.</p>
+        </div>
+      </footer>
+
+      <!-- Mensajes de confirmación -->
+
+      <div
+        id="toast"
+        class="toast hidden"
+        role="status"
+        aria-live="polite"
+      ></div>
+    </div>
+
+    <!-- Código JavaScript -->
+
+    <script src="script.js"></script>
+  </body>
+</html>
